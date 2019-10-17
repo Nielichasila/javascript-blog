@@ -2,6 +2,7 @@
     const links = document.querySelectorAll('.titles a');
     console.log('links:', links);
 });*/
+
 const titleClickHandler = function(event){
     event.preventDefault();
     const clickedElement = this;
@@ -19,19 +20,21 @@ const titleClickHandler = function(event){
     console.log('clickedElement:', clickedElement);
     
     /* [DONE] remove class 'active' from all articles */
-    const activeArticles = document.querySelectorAll('.post.active');
-
+    const activeArticles = document.querySelectorAll('.posts artcicle.active');
+    
     for(let activeArticle of activeArticles){
         activeArticle.classList.remove('active');
     }
     /* get 'href' attribute from the clicked link */
     const articleSelector = clickedElement.getAttribute('href');
-    console.log(articleSelector);
+    //console.log(articleSelector);
+    
     /* find the correct article using the selector (value of 'href' attribute) */
-    const targetArticle = document.querySelector('articleSelector');
+    const targetArticle = document.querySelector(articleSelector);
+
     /* add class 'active' to the correct article */
     targetArticle.classList.add('active');
-    console.log('targetArticle', targetArticle);
+    //console.log('targetArticle', targetArticle);
 }
 
 const links = document.querySelectorAll('.titles a');
