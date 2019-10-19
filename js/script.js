@@ -20,7 +20,7 @@ const titleClickHandler = function(event){
     console.log('clickedElement:', clickedElement);
     
     /* [DONE] remove class 'active' from all articles */
-    const activeArticles = document.querySelectorAll('.posts artcicle.active');
+    const activeArticles = document.querySelectorAll('.posts article.active');
     
     for(let activeArticle of activeArticles){
         activeArticle.classList.remove('active');
