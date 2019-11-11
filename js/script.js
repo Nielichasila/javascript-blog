@@ -73,14 +73,12 @@ function generateTags(){
     }
     /* [NEW] find list of tags in right column */
     const tagList = document.querySelector('.tags');
-
     /* [NEW] create variable for all links HTML code */
-   //tagList.innerHTML = allTags.join(' ');
-    let allTagsHTML = '';
+    let allTagsHTML = ' ';
     /* [NEW] START LOOP: for each tag for allTags: */
     for(let tag in allTags) {
     /* [NEW] Generate code of a link and add it to allTagsHTML */
-        allTagsHTML += tag + '(' + allTags[tag] +')';
+        allTagsHTML += '<li><a href="#tag-' + tag + '">' + allTags[tag] + '</a></li>';
     /*[NEW] END LOOP for each tag for allTags: */
     }
     /* [NEW] add HTML from allTagsHTML to tagList */
