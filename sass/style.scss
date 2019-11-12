@@ -118,3 +118,27 @@ body {
         margin: 0 10px 0 0;
     }
 }
+.tag-size-5 {
+    font-size: 200%;
+    color: aqua;
+}
+.tag-size-4 {
+    font-size: 160%;
+    color: chartreuse;
+}
+.tag-size-3 {
+    font-size: 130%;
+    color: brown;
+}
+.tag-size-2 {
+    font-size: 120%;
+    color: darkblue;
+}
+.tag-size-1 {
+    font-size: 100%;
+    color: deeppink;
+}
+.tags li {
+    display: inline;
+    text-decoration: none;
+}
