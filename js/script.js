@@ -27,7 +27,8 @@ const optArticleSelector = '.post',
       optArticleAuthorSelector = '.post-author',
       optTagsListSelector = '.tags.list',
       optCloudClassCount = 5,
-      optCloudClassPrefix = 'tag-size-';
+      optCloudClassPrefix = 'tag-size-',
+      optAuthorsListSelector = '.authors.list';
 
 function generateTitleLinks(customSelector = ''){
     const titleList = document.querySelector(optTitleListSelector);
@@ -67,7 +68,6 @@ return params;
 }
 function calculateTagClass(count, params){
     const normalizedCount = count - params.min;
-    console.log('normalizedCount', normalizedCount);
     const normalizedMax = params.max - params.min;
     const percentage = normalizedCount / normalizedMax;
     const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
@@ -154,8 +154,42 @@ function addClickListenersToTags(){
 }
     addClickListenersToTags();
 
+function calculateAuthorsParams(authors) {
+    const params = {
+        max: 0,
+        min: 999999
+    }
+    // [VERY NEW] START LOOP for every tags
+    for (let author in authors) {
+        //console.log(author + ' is used ' + authors[author] + ' times ');
+        /* first option - standard if*/
+        // [VERY NEW] set value for params.max as authors[author] only if the value is higher than current
+        if (authors[author] > params.max) {
+            params.max = authors[author];
+            //console.log('params.max:', params.max);
+        }
+        if (authors[author] < params.min) {
+            params.min = authors[author];
+            //console.log('params.min:', params.min);
+        }
+    }
+    return params;
+}
+function calculateAuthorClass(count, params){
+    //console.log('calculateAuthorClass:', calculateAuthorClass, 'count:' ,count, 'params:', params);
+    const normalizedCount = count - params.min;
+    //console.log('normalizedCount:', normalizedCount);
+    const normalizedMax = params.max - params.min;
+    //console.log('normalizedMax:', normalizedMax);
+    const percentage = normalizedCount / normalizedMax;
+    //console.log('percentage:', percentage);
+    const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+    //console.log('classNumber:', classNumber);
+    return classNumber;
+}
 
 function generateAuthors(){
+    let allAuthors = {};
     const authorArticles = document.querySelectorAll(optArticleSelector);
     for (let authorArticle of authorArticles) {
         const authorList = authorArticle.querySelector(optArticleAuthorSelector);
@@ -163,7 +197,21 @@ function generateAuthors(){
         const articleAuthor = authorArticle.getAttribute('data-author');
         const linkHTML = '<a href="#author-' + articleAuthor + '">' + articleAuthor  + '</a>' + ' ';
         html = html + linkHTML;
+        if(!allAuthors.hasOwnProperty(articleAuthor)) {
+            /* [NEW] add generated code to allTags array */
+            allAuthors[articleAuthor] = 1;
+        }else {
+            allAuthors[articleAuthor]++;
+        }
         authorList.innerHTML = html;
+}
+    const authorList = document.querySelector('.authors');
+    const authorParams = calculateAuthorsParams(allAuthors);
+    let allAuthorsHTML = ' ';
+    for (let articleAuthor in allAuthors) {
+        const authorLinkHTML = '<li><a class ="tag-size-' + calculateAuthorClass(allAuthors[articleAuthor], authorParams) +'" href="#author-' + articleAuthor + '">' + articleAuthor + '</a></li>' + ' ';
+        allAuthorsHTML += authorLinkHTML;
+        authorList.innerHTML = allAuthorsHTML;
     }
 }
 generateAuthors();
