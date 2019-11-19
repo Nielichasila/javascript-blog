@@ -132,7 +132,7 @@ body {
 }
 .tag-size-2 {
     font-size: 120%;
-    color: darkblue;
+    color: fuchsia;
 }
 .tag-size-1 {
     font-size: 100%;
@@ -140,5 +140,12 @@ body {
 }
 .tags li {
     display: inline;
-    text-decoration: none;
+    line-height: normal;
+}
+.authors li {
+    display: inline;
+    line-height: normal;
+}
+li {
+    list-style-type: none;
 }
